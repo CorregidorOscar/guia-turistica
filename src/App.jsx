@@ -1,14 +1,30 @@
-
+import { BrowserRouter, Routes, Route } from "react-router";
+import Home from "./pages/Home";
+import Destinations from "./pages/Destinations";
+import Contact from "./pages/Contact";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-emerald-400">
-        React 19 + Tailwind CSS + React Router Dom
-      </h1>
-    </div>
-  )
- 
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col bg-surface text-dark antialiased">
+        <Navbar />
+
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/destinations" element={<Destinations />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </BrowserRouter >
+
+  );
+
 }
 
 export default App
