@@ -3,9 +3,9 @@
 @theme {
   /* Botones principales, enlaces activos, acentos fuertes */
   --color-primary: #b84a39;
-  /* Estados :hover, encabezados destacados o badges */
+  /* Estados :hover, encabezados destacados */
   --color-primary-dark: #7a2828;
-  /* Detalles en el Navbar, íconos del clima, llamados a la acción secundarios */
+  /* Detalles en el Navbar, íconos del clima, secundarios */
   --color-secondary: #d99b26;
 
   /* Fondo general de las páginas */
