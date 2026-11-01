@@ -1,7 +1,77 @@
 import { tours } from '../data/tours';
 import { MapPinned } from 'lucide-react';
+import { useState } from 'react';
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    tour: 'Consulta General',
+    message: '',
+  });
+
+  const [status, setStatus] = useState({
+    sending: false,
+    success: false,
+    error: null,
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus({ sending: true, success: false, error: null });
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: {
+            name: formData.name,
+            email: formData.email,
+            tour: formData.tour,
+            message: formData.message,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo enviar el mensaje. Verifica la configuración de EmailJS')
+      }
+
+      setStatus({ sending: false, success: true, error: null });
+
+      setFormData({
+        name: '',
+        email: '',
+        tour: 'Consulta General',
+        message: '',
+      });
+    } catch (err) {
+      setStatus({
+        sending: false,
+        success: false,
+        error: err.message || 'Ocurrio un error al enviar el correo'
+      });
+    }
+  }
+
   return (
     <section className="max-w-6xl mx-auto px-4 py-10 space-y-8">
       {/* Encabezado */}
@@ -29,7 +99,29 @@ function Contact() {
             Completa el formulario y recibirás respuesta directamente en tu correo electrónico.
           </p>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          {/* Alerta de exito */}
+          {
+            status.success && (
+              <div className="mb-6 p-4 rounded-xl bg-secondary/15 border border-secondary text-dark text-sm">
+                <p className="font-bold">¡Mensaje enviado con éxito!</p>
+                <p className="text-xs text-muted mt-0.5">
+                  Hemos recibido tu consulta en nuestra casilla de correo. Te responderemos a la brevedad.
+                </p>
+              </div>
+            )
+          }
+
+          {/* Alerta de Error */}
+          {
+            status.error && (
+              <div className="mb-6 p-4 rounded-xl bg-primary/10 border border-primary text-primary text-sm">
+                <p className="font-bold">Error al enviar</p>
+                <p className="text-xs mt-0.5">{status.error}</p>
+              </div>
+            )
+          }
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -42,6 +134,8 @@ function Contact() {
                 name="name"
                 type="text"
                 required
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Ej. Juan Pérez"
                 className="w-full px-4 py-2.5 rounded-lg bg-surface border border-dark/15 text-dark placeholder:text-muted/60 text-sm focus:outline-none focus:border-primary transition-colors"
               />
@@ -59,6 +153,8 @@ function Contact() {
                 name="email"
                 type="email"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="tu@correo.com"
                 className="w-full px-4 py-2.5 rounded-lg bg-surface border border-dark/15 text-dark placeholder:text-muted/60 text-sm focus:outline-none focus:border-primary transition-colors"
               />
@@ -74,18 +170,17 @@ function Contact() {
               <select
                 id="tour"
                 name="tour"
-                defaultValue=""
+                value={formData.tour}
+                onChange={handleChange}
                 className="w-full px-4 py-2.5 rounded-lg bg-surface border border-dark/15 text-dark text-sm focus:outline-none focus:border-primary transition-colors"
               >
-                <option value="" disabled>
-                  Selecciona un circuito (opcional)
-                </option>
+
+                <option value="Consulta General">Consulta General</option>
                 {tours.map((tour) => (
                   <option key={tour.id} value={tour.nombre}>
                     {tour.nombre}
                   </option>
                 ))}
-                <option value="Consulta General">Otra consulta general</option>
               </select>
             </div>
 
@@ -101,6 +196,8 @@ function Contact() {
                 name="message"
                 rows="4"
                 required
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Indícanos fechas aproximadas, cantidad de personas o dudas sobre los recorridos..."
                 className="w-full px-4 py-2.5 rounded-lg bg-surface border border-dark/15 text-dark placeholder:text-muted/60 text-sm focus:outline-none focus:border-primary transition-colors resize-none"
               ></textarea>
@@ -108,9 +205,10 @@ function Contact() {
 
             <button
               type="submit"
+              disabled={status.sending}
               className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm cursor-pointer"
             >
-              Enviar Consulta
+              {status.sending ? 'Enviando mensaje...' : 'Enviar Consulta'}
             </button>
           </form>
         </div>
@@ -133,7 +231,7 @@ function Contact() {
           <div className="w-full h-80 sm:h-96 bg-surface">
             <iframe
               title="Ubicación Oficina de Turismo Cafayate"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.633860770308!2d-65.9781376246001!3d-26.072688477157816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x941f31eb8925a199%3A0x6d9006e145546953!2sPlaza%2020%20de%20Febrero!5e0!3m2!1ses-419!2sar!4v1710000000000!5m2!1ses-419!2sar"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1791.8995281971852!2d-65.97676403922047!3d-26.072822734878464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x941f31869c3fc507%3A0xb3a1dd81ee936874!2sDirecci%C3%B3n%20de%20Turismo!5e0!3m2!1ses!2sar!4v1793564654260!5m2!1ses!2sar"
               className="w-full h-full"
               style={{ border: 0 }}
               allowFullScreen

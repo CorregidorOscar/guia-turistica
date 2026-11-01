@@ -119,13 +119,13 @@ function Home() {
                 <img
                   src={`https:${current.condition.icon}`}
                   alt={current.condition.text}
-                  className="w-11 h-11 object-contain scale-190 rounded-full"
+                  className="w-11 h-11 object-contain scale-140 rounded-full"
                 />
               ) : (
                 <img
                   src="https://cdn.weatherapi.com/weather/64x64/day/113.png"
                   alt="Despejado"
-                  className="w-11 h-11 object-contain scale-175 rounded-full p-1"
+                  className="w-11 h-11 object-contain scale-140 rounded-full p-1"
                 />
               )}
               <div>
