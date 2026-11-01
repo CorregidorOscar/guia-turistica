@@ -28,7 +28,7 @@ function getImageByWeather(current) {
   const code = current.condition.code;
   const isDay = current.is_day === 1;
 
-  // Códigos de clima de acuerdo a WeatherAPI
+  // Códigos de clima de acuerdo a WeatherAPI.com
   if (code >= 1063 && code <= 1282) {
     return WEATHER_IMAGES.rainy;
   }
@@ -133,13 +133,13 @@ function Home() {
                   Condiciones Actuales en {location?.name || 'Cafayate'}
                 </h2>
                 <p className="text-xs text-surface/70">
-                  Datos en tiempo real obtenidos mediante API pública (Lat: -26.073, Lon: -65.976)
+                  Datos en tiempo real obtenidos mediante API gratuita (Lat: -26.073, Lon: -65.976)
                 </p>
               </div>
             </div>
-            <span className="text-xs bg-secondary/20 text-secondary border border-secondary/40 px-3 py-1 rounded-full w-fit">
-              API Pública
-            </span>
+            <a href="https://weatherapi.com" target="_blank" rel="noopener noreferrer" className="text-xs bg-secondary/20 text-secondary border border-secondary/40 px-3 py-1 rounded-full w-fit">
+              WeatherAPI.com
+            </a>
           </div>
 
 

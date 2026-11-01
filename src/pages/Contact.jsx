@@ -217,7 +217,7 @@ function Contact() {
         <div className="bg-card rounded-2xl border border-dark/10 shadow-xs overflow-hidden flex flex-col">
           <div className="bg-dark text-surface px-6 py-4 border-b border-white/10">
             <h2 className="text-lg font-bold">
-              Punto de Encuentro e Informes
+              Dirección de Turismo
             </h2>
             <div className="flex items-center justify-start gap-1 text-xs text-surface/70">
               <MapPinned size={12} strokeWidth={2} />
@@ -249,7 +249,7 @@ function Contact() {
             <div>
               <p className="font-bold text-dark mb-1">Horario de Atención</p>
               <p>Lunes a Domingos: 08:00 a 20:00 hs</p>
-              <p>Salidas diarias de excursiones</p>
+              <p>Información general y de contacto para excursiones</p>
             </div>
           </div>
         </div>
