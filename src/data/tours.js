@@ -6,7 +6,7 @@ export const tours = [
     descripcion:
       'Recorrido por la Ruta Nacional 68 a través de imponentes formaciones de arenisca rojiza como El Anfiteatro, La Garganta del Diablo, El Sapo y Los Castillos.',
     duracion: 'Medio día (4 a 5 hs)',
-    dificultad: 'Baja',
+    dificultad: 'Baja - Media',
     distancia: '18 km a 50 km del centro',
     imagen:
       'https://www.cafayate.tur.ar/ccm/app/image/municipalities/660056/Cafayate_Reserva_Las_Conchas_Paisajes_MinTurSla_64_Banner.jpg',
@@ -30,7 +30,7 @@ export const tours = [
     descripcion:
       'Dunas de arena blanca calcárea y mica en medio del valle. Un escenario ideal para caminatas al atardecer y fotografía panorámica de los cerros.',
     duracion: '2 a 3 horas',
-    dificultad: 'Baja',
+    dificultad: 'Baja - Media',
     distancia: '7 km por RN 68',
     imagen:
       'https://www.cafayate.tur.ar/ccm/app/image/municipalities/660056/places/191/Cafayate_Reserva_Las_Conchas_Medano_CFMinTurCaf_33_Banner.jpg',
@@ -54,7 +54,7 @@ export const tours = [
     descripcion:
       'Sitio arqueológico al pie del cerro San Isidro con morteros comunitarios, cuevas con pinturas rupestres de antiguos pueblos diaguitas-calchaquíes y miradores.',
     duracion: '2 a 3 horas',
-    dificultad: 'baja',
+    dificultad: 'Media',
     distancia: '6 km del centro',
     imagen:
       'https://www.cafayate.tur.ar/ccm/app/image/municipalities/660056/attractions/582/Cafayate_Divisadero_Cueva_Suri_SecTurCaf_21_Banner.jpg',
