@@ -59,7 +59,7 @@ function TourCard({ tour }) {
             <span className="flex items-center justify-between gap-1">
               <Clock size={12} strokeWidth={2} /> {duracion}
             </span>
-            <span className="flex items-center justify-between gap-1">
+            <span className="flex items-center justify-start gap-1">
               <MapPinned size={12} strokeWidth={2} />
               {distancia}
             </span>
