@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/guia-turistica">
       <div className="min-h-screen flex flex-col bg-surface text-dark antialiased">
         <Navbar />
 
